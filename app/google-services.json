@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "244514397149",
+    "project_id": "nearstore-project",
+    "storage_bucket": "nearstore-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244514397149:android:cc5e6ea61b72fb33f7f434",
+        "android_client_info": {
+          "package_name": "com.gilandrey.nearstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB54ZtiK0XD9EQxRCpCfqYAv16AihOJyjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
