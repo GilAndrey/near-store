@@ -2,6 +2,7 @@ package com.gilandrey.nearstore.Repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gilandrey.nearstore.domain.BannerModel
 import com.gilandrey.nearstore.domain.CategoryModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,6 +20,30 @@ class DashboardRepository {
                 val list = mutableListOf<CategoryModel>()
                 for (childSnapshot in snapshot.children) {
                     val item = childSnapshot.getValue(CategoryModel::class.java)
+                    item?.let {
+                        list.add(it)
+                    }
+                }
+
+                listData.value = list
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+        return listData
+    }
+
+    fun loadBanner(): LiveData<MutableList<BannerModel>> {
+        val listData = MutableLiveData<MutableList<BannerModel>>()
+        // changed reference to "Banners" to match the database node name
+        val ref = firebaseDatabase.getReference("Banners")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot : DataSnapshot) {
+                val list = mutableListOf<BannerModel>()
+                for (childSnapshot in snapshot.children) {
+                    val item = childSnapshot.getValue(BannerModel::class.java)
                     item?.let {
                         list.add(it)
                     }

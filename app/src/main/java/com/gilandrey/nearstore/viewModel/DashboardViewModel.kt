@@ -2,6 +2,7 @@ package com.gilandrey.nearstore.viewModel
 
 import androidx.lifecycle.LiveData
 import com.gilandrey.nearstore.Repository.DashboardRepository
+import com.gilandrey.nearstore.domain.BannerModel
 import com.gilandrey.nearstore.domain.CategoryModel
 
 class DashboardViewModel {
@@ -10,5 +11,9 @@ class DashboardViewModel {
 
     fun loadCategory() : LiveData<MutableList<CategoryModel>>{
         return repository.loadCategory()
+    }
+
+    fun loadBanner() : LiveData<MutableList<BannerModel>> {
+        return repository.loadBanner()
     }
 }

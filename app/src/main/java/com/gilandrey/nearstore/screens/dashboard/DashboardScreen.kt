@@ -1,7 +1,6 @@
 package com.gilandrey.nearstore.screens.dashboard
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
@@ -16,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import com.gilandrey.nearstore.R
 import com.gilandrey.nearstore.Repository.DashboardRepository
+import com.gilandrey.nearstore.domain.BannerModel
 import com.gilandrey.nearstore.domain.CategoryModel
 
 @Composable
@@ -24,8 +24,10 @@ fun DashboardScreen(onCategoryClick: (id: String, title: String) -> Unit) {
     val viewModel = DashboardRepository()
 
     val categories = remember { mutableStateListOf<CategoryModel>() }
+    val banners = remember { mutableStateListOf<BannerModel>() }
 
     var showCategoryLoading by remember { mutableStateOf(true) }
+    var showBannerLoading by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
         viewModel.loadCategory().observeForever {
@@ -34,6 +36,15 @@ fun DashboardScreen(onCategoryClick: (id: String, title: String) -> Unit) {
             showCategoryLoading = false
         }
     }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadBanner().observeForever {
+            banners.clear()
+            banners.addAll(it)
+            showBannerLoading = false
+        }
+    }
+
 
     Scaffold(
         containerColor = colorResource(R.color.black2),
@@ -47,6 +58,7 @@ fun DashboardScreen(onCategoryClick: (id: String, title: String) -> Unit) {
         ) {
             item { TopBar() }
             item { CategorySection(categories, showCategoryLoading, onCategoryClick)  }
+            item { Banner(banners, showBannerLoading) }
         }
     }
 }
